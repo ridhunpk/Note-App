@@ -11,6 +11,7 @@ import 'bloc/sync/sync_bloc.dart';
 import 'bloc/sync/sync_event.dart';
 import 'data/repositories/notes_repository.dart';
 import 'presentation/pages/notes_list_page.dart';
+import 'presentation/pages/splash_page.dart';
 import 'services/connectivity_service.dart';
 import 'services/sync_service.dart';
 
@@ -60,7 +61,7 @@ class _MyAppState extends State<MyApp> {
         debugShowCheckedModeBanner: false,
         title: 'Offline Notes',
         theme: _buildTheme(),
-        home: const NotesListPage(),
+        home: const SplashPage(),
       ),
     );
   }
