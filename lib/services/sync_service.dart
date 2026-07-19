@@ -6,6 +6,31 @@ import '../data/remote/notes_api_service.dart';
 class SyncService {
   final NotesApiService api = NotesApiService();
 
+  static bool shouldFlagConflict(NoteModel local, NoteModel server) {
+    final localCheckpoint = local.lastSyncedAt;
+    final hasLocalChange = local.syncStatus == 'pending' ||
+        local.syncStatus == 'conflict' ||
+        localCheckpoint == null ||
+        local.updatedAt.isAfter(localCheckpoint);
+
+    final hasServerChange = localCheckpoint == null ||
+        server.updatedAt.isAfter(localCheckpoint);
+
+    if (!hasLocalChange && !hasServerChange) {
+      return false;
+    }
+
+    if (!hasLocalChange) {
+      return false;
+    }
+
+    if (!hasServerChange) {
+      return false;
+    }
+
+    return true;
+  }
+
   Future<void> sync() async {
     final List<String> errors = [];
 
@@ -136,10 +161,11 @@ class SyncService {
       return;
     }
 
-    // True conflict: both local AND server were modified since last sync
-    final bool localModified = local.lastSyncedAt != null &&
+    final bool localModified = local.syncStatus == 'pending' ||
+        local.syncStatus == 'conflict' ||
+        local.lastSyncedAt == null ||
         local.updatedAt.isAfter(local.lastSyncedAt!);
-    final bool serverModified = local.lastSyncedAt != null &&
+    final bool serverModified = local.lastSyncedAt == null ||
         server.updatedAt.isAfter(local.lastSyncedAt!);
 
     if (localModified && serverModified) {
