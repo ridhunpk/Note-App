@@ -47,7 +47,7 @@ class _ConflictResolutionPageState extends State<ConflictResolutionPage>
     try {
       await _service.keepLocal(widget.note);
       if (mounted) {
-        context.read<NotesBloc>().add(LoadNotes()); // Bug fix: reload list
+        context.read<NotesBloc>().add(LoadNotes());
         _showSuccess('Local version kept & pushed to server');
         Navigator.pop(context);
       }
@@ -64,7 +64,7 @@ class _ConflictResolutionPageState extends State<ConflictResolutionPage>
     try {
       await _service.keepServer(widget.note);
       if (mounted) {
-        context.read<NotesBloc>().add(LoadNotes()); // Bug fix: reload list
+        context.read<NotesBloc>().add(LoadNotes()); 
         _showSuccess('Server version applied to local');
         Navigator.pop(context);
       }
@@ -144,7 +144,6 @@ class _ConflictResolutionPageState extends State<ConflictResolutionPage>
         child: ListView(
           padding: const EdgeInsets.all(20),
           children: [
-            // Header banner
             Container(
               padding: const EdgeInsets.all(14),
               decoration: BoxDecoration(
@@ -174,7 +173,6 @@ class _ConflictResolutionPageState extends State<ConflictResolutionPage>
 
             const SizedBox(height: 24),
 
-            // Local version card
             _VersionCard(
               label: 'LOCAL VERSION',
               labelColor: const Color(0xFF4ADE80),
@@ -188,7 +186,6 @@ class _ConflictResolutionPageState extends State<ConflictResolutionPage>
 
             const SizedBox(height: 8),
 
-            // VS divider
             Row(
               children: [
                 Expanded(
@@ -221,7 +218,6 @@ class _ConflictResolutionPageState extends State<ConflictResolutionPage>
 
             const SizedBox(height: 8),
 
-            // Server version card
             _VersionCard(
               label: 'SERVER VERSION',
               labelColor: const Color(0xFF9D97FF),
@@ -235,7 +231,6 @@ class _ConflictResolutionPageState extends State<ConflictResolutionPage>
 
             const SizedBox(height: 32),
 
-            // Keep Local button
             SizedBox(
               width: double.infinity,
               height: 52,
@@ -277,7 +272,6 @@ class _ConflictResolutionPageState extends State<ConflictResolutionPage>
 
             const SizedBox(height: 12),
 
-            // Keep Server button
             SizedBox(
               width: double.infinity,
               height: 52,
@@ -325,8 +319,6 @@ class _ConflictResolutionPageState extends State<ConflictResolutionPage>
   }
 }
 
-// ─── Version Card ─────────────────────────────────────────────────────────────
-
 class _VersionCard extends StatelessWidget {
   final String label;
   final Color labelColor;
@@ -360,7 +352,6 @@ class _VersionCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Label row
           Row(
             children: [
               Container(
@@ -392,7 +383,6 @@ class _VersionCard extends StatelessWidget {
 
           const SizedBox(height: 12),
 
-          // Title
           Text(
             title,
             style: GoogleFonts.inter(

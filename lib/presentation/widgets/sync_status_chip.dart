@@ -63,7 +63,6 @@ class _SyncStatusChipState extends State<SyncStatusChip>
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              // Pulsing dot
               Opacity(
                 opacity: widget.status == 'pending' ? _pulseAnim.value : 1.0,
                 child: Container(

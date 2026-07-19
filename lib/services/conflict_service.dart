@@ -21,12 +21,10 @@ class ConflictService {
     note.serverTitle = null;
     note.serverBody = null;
 
-    note.lastSyncedAt =
-        DateTime.now();
+    note.lastSyncedAt = note.serverUpdatedAt ?? DateTime.now();
 
     await note.save();
 
-    // Clear any queue items for this note
     for (final qItem in HiveService.syncQueue.values.toList()) {
       if (qItem.noteId == note.id) {
         await qItem.delete();
@@ -49,12 +47,10 @@ class ConflictService {
   note.serverTitle = null;
   note.serverBody = null;
 
-  note.lastSyncedAt =
-      DateTime.now();
+    note.lastSyncedAt = note.serverUpdatedAt ?? DateTime.now();
 
   await note.save();
 
-  // Clear any queue items for this note
   for (final qItem in HiveService.syncQueue.values.toList()) {
     if (qItem.noteId == note.id) {
       await qItem.delete();

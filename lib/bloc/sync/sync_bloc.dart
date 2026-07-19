@@ -34,7 +34,6 @@ class SyncBloc extends Bloc<SyncEvent, SyncState> {
       ));
     }
 
-    // Always reload notes after sync (success or partial)
     notesBloc.add(LoadNotes());
   }
 }

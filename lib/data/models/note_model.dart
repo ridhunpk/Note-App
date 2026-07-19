@@ -28,6 +28,8 @@ class NoteModel extends HiveObject {
 
   @HiveField(8)
   String? serverBody;
+  @HiveField(9)
+  DateTime? serverUpdatedAt;
 
   NoteModel({
     required this.id,
@@ -39,18 +41,43 @@ class NoteModel extends HiveObject {
     this.lastSyncedAt,
     this.serverTitle,
     this.serverBody,
+    this.serverUpdatedAt,
   });
 
   factory NoteModel.fromJson(Map<String, dynamic> json) {
+    DateTime _parseDate(dynamic value) {
+      if (value == null) return DateTime.now();
+      if (value is DateTime) return value;
+      if (value is int) return DateTime.fromMillisecondsSinceEpoch(value);
+      if (value is String) {
+        try {
+          return DateTime.parse(value);
+        } catch (_) {
+          return DateTime.now();
+        }
+      }
+      return DateTime.now();
+    }
+
+    final id = json['id']?.toString() ?? '';
+    final title = json['title'] ?? '';
+    final body = json['body'] ?? '';
+
+    final rawUpdated = json['updatedAt'] ?? json['updateAt'] ?? json['createdAt'];
+    final parsedUpdatedAt = _parseDate(rawUpdated);
+
     return NoteModel(
-      id: json['id'].toString(),
-      title: json['title'] ?? '',
-      body: json['body'] ?? '',
-      updatedAt: json['updatedAt'] != null
-          ? DateTime.parse(json['updatedAt'])
+      id: id,
+      title: title,
+      body: body,
+      updatedAt: parsedUpdatedAt,
+      syncStatus: json['syncStatus'] ?? 'synced',
+      lastSyncedAt: json['lastSyncedAt'] != null
+          ? _parseDate(json['lastSyncedAt'])
           : DateTime.now(),
-      syncStatus: 'synced',
-      lastSyncedAt: DateTime.now(),
+      serverTitle: json['title'],
+      serverBody: json['body'],
+      serverUpdatedAt: parsedUpdatedAt,
     );
   }
 

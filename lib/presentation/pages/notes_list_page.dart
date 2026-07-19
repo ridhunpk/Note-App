@@ -38,7 +38,6 @@ class _NotesListPageState extends State<NotesListPage> {
       final isOnline = results.any((r) => r != ConnectivityResult.none);
 
       if (_wasOnline != null && isOnline != _wasOnline) {
-        // Clear any current snackbars immediately to avoid queueing delays
         ScaffoldMessenger.of(context).clearSnackBars();
 
         if (isOnline) {
@@ -304,7 +303,6 @@ class _NotesListPageState extends State<NotesListPage> {
   }
 }
 
-// ─── Note Card ───────────────────────────────────────────────────────────────
 
 class _NoteCard extends StatefulWidget {
   final String title;
@@ -552,7 +550,6 @@ class _NoteCardState extends State<_NoteCard>
   }
 }
 
-// ─── Sync Button ─────────────────────────────────────────────────────────────
 
 class _SyncButton extends StatelessWidget {
   final DateTime? lastSyncedAt;
@@ -591,8 +588,6 @@ class _SyncButton extends StatelessWidget {
     );
   }
 }
-
-// ─── Animated FAB ────────────────────────────────────────────────────────────
 
 class _AnimatedFab extends StatefulWidget {
   final VoidCallback onPressed;

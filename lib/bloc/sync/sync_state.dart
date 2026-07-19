@@ -11,7 +11,6 @@ class SyncState extends Equatable {
     this.lastSyncedAt,
   });
 
-  // Sentinel so copyWith can distinguish "clear error" vs "keep existing error"
   static const _keepError = Object();
 
   SyncState copyWith({

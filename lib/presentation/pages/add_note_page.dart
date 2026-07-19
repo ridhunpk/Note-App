@@ -101,7 +101,6 @@ class _AddNotePageState extends State<AddNotePage>
             child: ListView(
               padding: const EdgeInsets.all(20),
               children: [
-                // Title field
                 _FieldLabel('Title'),
                 const SizedBox(height: 8),
                 TextFormField(
@@ -126,7 +125,6 @@ class _AddNotePageState extends State<AddNotePage>
 
                 const SizedBox(height: 20),
 
-                // Body field
                 _FieldLabel('Content'),
                 const SizedBox(height: 8),
                 TextFormField(
@@ -155,7 +153,6 @@ class _AddNotePageState extends State<AddNotePage>
 
                 const SizedBox(height: 32),
 
-                // Save button
                 SizedBox(
                   width: double.infinity,
                   height: 52,

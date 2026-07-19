@@ -51,7 +51,6 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
         note.lastSyncedAt = DateTime.now();
         syncedDirectly = true;
       } catch (_) {
-        // Fall back to offline queue if server request fails
       }
     }
 
@@ -76,7 +75,6 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
         event.note.lastSyncedAt = DateTime.now();
         syncedDirectly = true;
       } catch (_) {
-        // Fall back to offline queue if server request fails
       }
     }
 
@@ -106,7 +104,6 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
         await repository.deleteNote(note.id);
         deletedDirectly = true;
       } catch (_) {
-        // Fall back to offline queue if server request fails
       }
     }
 

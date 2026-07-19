@@ -33,8 +33,6 @@ class _MyAppState extends State<MyApp> {
     super.initState();
     _notesBloc = NotesBloc(NotesRepository())..add(LoadNotes());
     _syncBloc = SyncBloc(SyncService(), _notesBloc);
-
-    // Auto-sync when connectivity is restored
     _subscription = _connectivityService.stream.listen((results) {
       final isOnline = results.any((r) => r != ConnectivityResult.none);
       if (isOnline) {
